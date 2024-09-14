@@ -10,14 +10,12 @@ import org.springframework.stereotype.Service;
 public class CreateItemService {
 
     private ItemRepository itemRepository;
-    private Logger logger = LoggerFactory.getLogger(CreateItemService.class);
 
     private CreateItemService(ItemRepository itemRepository){
         this.itemRepository = itemRepository;
     }
 
     public Item save(Item item){
-        logger.info(item.toString());
         return this.itemRepository.save(item);
     }
 }
