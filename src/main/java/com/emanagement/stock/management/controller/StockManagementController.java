@@ -14,10 +14,10 @@ import java.util.Optional;
 @RequestMapping("/stock")
 public class StockManagementController {
 
-    private GetItemService getItemService;
-    private CreateItemService createItemService;
+    private final GetItemService getItemService;
+    private final CreateItemService createItemService;
 
-    private StockManagementController(GetItemService getItemService, CreateItemService createItemService){
+    public StockManagementController(GetItemService getItemService, CreateItemService createItemService){
         this.getItemService = getItemService;
         this.createItemService = createItemService;
     }
