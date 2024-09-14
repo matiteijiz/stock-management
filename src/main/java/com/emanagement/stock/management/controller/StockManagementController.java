@@ -3,12 +3,15 @@ package com.emanagement.stock.management.controller;
 import com.emanagement.stock.entity.Item;
 import com.emanagement.stock.management.service.CreateItemService;
 import com.emanagement.stock.management.service.GetItemService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/stock")
+@RequestMapping("/stock")
 public class StockManagementController {
 
     private GetItemService getItemService;
@@ -20,18 +23,23 @@ public class StockManagementController {
     }
 
     @GetMapping("/items")
-    public List<Item> getAllItems(){
-        return this.getItemService.getAllItems();
+    public ResponseEntity<List<Item>> getAllItems(){
+        var items = this.getItemService.getAllItems();
+        return ResponseEntity.ok(items);
     }
 
     @GetMapping("/item/{code}")
-    public Item getItemBy(@PathVariable String code){
-        return this.getItemService.getItemByCode(code);
+    public ResponseEntity<Item> getItemBy(@PathVariable String code){
+        var item = this.getItemService.getItemByCode(code);
+        return ResponseEntity.ok(item);
     }
 
     @PostMapping("/item")
-    public Item saveItem(@RequestBody Item item){
-        return createItemService.save(item);
+    public ResponseEntity<Item> saveItem(@RequestBody Item item){
+        var itemCreated = createItemService.save(item);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(itemCreated);
     }
 
 
