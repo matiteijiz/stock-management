@@ -3,30 +3,29 @@ package com.emanagement.stock.management.controller;
 import com.emanagement.stock.entity.Item;
 import com.emanagement.stock.management.service.CreateItemService;
 import com.emanagement.stock.management.service.GetItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/stock")
 public class StockManagementController {
 
     private GetItemService getItemService;
     private CreateItemService createItemService;
 
-    @Autowired
     private StockManagementController(GetItemService getItemService, CreateItemService createItemService){
         this.getItemService = getItemService;
         this.createItemService = createItemService;
     }
 
     @GetMapping("/items")
-    public List<Item> getAllOfItems(){
+    public List<Item> getAllItems(){
         return this.getItemService.getAllItems();
     }
 
-    @GetMapping("/itemBy")
-    public Item getAnItemByCode(@RequestParam String code){
+    @GetMapping("/item/{code}")
+    public Item getItemBy(@PathVariable String code){
         return this.getItemService.getItemByCode(code);
     }
 
