@@ -4,11 +4,11 @@ import com.emanagement.stock.entity.Item;
 import com.emanagement.stock.management.service.CreateItemService;
 import com.emanagement.stock.management.service.GetItemService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/stock")
@@ -25,13 +25,15 @@ public class StockManagementController {
     @GetMapping("/items")
     public ResponseEntity<List<Item>> getAllItems(){
         var items = this.getItemService.getAllItems();
-        return ResponseEntity.ok(items);
+        return Optional.of(items)
+                .filter(itemList -> !itemList.isEmpty())
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @GetMapping("/item/{code}")
     public ResponseEntity<Item> getItemBy(@PathVariable String code){
-        var item = this.getItemService.getItemByCode(code);
-        return ResponseEntity.ok(item);
+        return ResponseEntity.of(this.getItemService.getItemByCode(code));
     }
 
     @PostMapping("/item")

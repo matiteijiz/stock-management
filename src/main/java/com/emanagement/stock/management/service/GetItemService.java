@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GetItemService {
@@ -21,7 +22,7 @@ public class GetItemService {
         return this.itemRepository.findAll();
     }
 
-    public Item getItemByCode(String code) {
-        return this.itemRepository.findById(code).get();
+    public Optional<Item> getItemByCode(String code) {
+        return this.itemRepository.findById(code);
     }
 }
