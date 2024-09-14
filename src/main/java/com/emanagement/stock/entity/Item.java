@@ -5,9 +5,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "items")
+@Data
 public class Item {
 
     @Id
@@ -20,44 +22,4 @@ public class Item {
     @Column(name = "name", nullable = false)
     private String name;
 
-    public Item() {}
-
-    public Item(String code, int stock, String name) {
-        this.code = code;
-        this.stock = stock;
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "code='" + code + '\'' +
-                ", stock=" + stock +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
