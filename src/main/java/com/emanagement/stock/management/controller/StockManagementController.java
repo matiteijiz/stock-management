@@ -5,6 +5,7 @@ import com.emanagement.stock.entity.Item;
 import com.emanagement.stock.management.service.CreateItemService;
 import com.emanagement.stock.management.service.GetItemService;
 import com.emanagement.stock.provider.ResponseProvider;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,7 @@ public class StockManagementController {
     }
 
     @PostMapping("/item")
-    public ResponseEntity<Item> saveItem(@RequestBody ItemRequestDto item){
+    public ResponseEntity<Item> saveItem(@Valid @RequestBody ItemRequestDto item){
         var itemCreated = createItemService.save(item);
         return responseProvider.created(itemCreated);
     }
