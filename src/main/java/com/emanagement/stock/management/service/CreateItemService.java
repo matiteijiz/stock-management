@@ -1,10 +1,11 @@
 package com.emanagement.stock.management.service;
 
+import com.emanagement.stock.dto.ItemRequestDto;
 import com.emanagement.stock.entity.Item;
 import com.emanagement.stock.repository.ItemRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class CreateItemService {
@@ -15,7 +16,13 @@ public class CreateItemService {
         this.itemRepository = itemRepository;
     }
 
-    public Item save(Item item){
+    public Item save(ItemRequestDto dto){
+        Item item = Item.builder()
+                .code(UUID.randomUUID().toString())
+                .name(dto.getName())
+                .stock(dto.getStock())
+                .build();
         return this.itemRepository.save(item);
     }
+
 }

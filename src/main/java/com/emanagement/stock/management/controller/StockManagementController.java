@@ -1,5 +1,6 @@
 package com.emanagement.stock.management.controller;
 
+import com.emanagement.stock.dto.ItemRequestDto;
 import com.emanagement.stock.entity.Item;
 import com.emanagement.stock.management.service.CreateItemService;
 import com.emanagement.stock.management.service.GetItemService;
@@ -25,6 +26,8 @@ public class StockManagementController {
         this.responseProvider = responseProvider;
     }
 
+    //TODO:Ver si puedo encapsular la forma en que resuelvo la respuesta de los ResponseEntity
+
     @GetMapping("/items")
     public ResponseEntity<List<Item>> getAllItems(){
         var items = this.getItemService.getAllItems();
@@ -43,7 +46,7 @@ public class StockManagementController {
     }
 
     @PostMapping("/item")
-    public ResponseEntity<Item> saveItem(@RequestBody Item item){
+    public ResponseEntity<Item> saveItem(@RequestBody ItemRequestDto item){
         var itemCreated = createItemService.save(item);
         return responseProvider.created(itemCreated);
     }
